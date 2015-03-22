@@ -15,3 +15,5 @@ redis
 django-extensions
 requests
 python-twitter==2.0
+flower
+selenium
