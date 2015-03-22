@@ -166,7 +166,9 @@ LOGGING = {
 }
 
 
-# EMAILS
+CELERY_ROUTES = {
+    'twitter_accounts.tasks.get_tweets_task': {'queue': 'twitter'}
+}
 
 
 # .local.py overrides all the common settings.
