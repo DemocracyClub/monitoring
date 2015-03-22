@@ -2,8 +2,8 @@ import base64
 
 from django.db import models
 from django.core.files.base import ContentFile
+from django.conf import settings
 
-from selenium import webdriver
 import requests
 
 from url_store.models import URL
@@ -21,9 +21,7 @@ class Screenshot(models.Model):
 
     def take_screenshot(self):
         url = requests.get(self.url.url).url
-        # br = webdriver.PhantomJS()
-        br = webdriver.Firefox()
-        # import ipdb; ipdb.set_trace()
+        br = settings.WEBDRIVER()
         br.get(self.url.url)
         ss =  br.get_screenshot_as_base64()
         # import ipdb; ipdb.set_trace()

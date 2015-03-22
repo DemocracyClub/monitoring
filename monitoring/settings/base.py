@@ -170,6 +170,9 @@ CELERY_ROUTES = {
     'twitter_accounts.tasks.get_tweets_task': {'queue': 'twitter'}
 }
 
+from selenium import webdriver
+WEBDRIVER = webdriver.Chrome
+
 
 # .local.py overrides all the common settings.
 try:
@@ -182,6 +185,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # importing test settings file if necessary (TODO chould be done better)
 if len(sys.argv) > 1 and 'test' in sys.argv[1]:
     from .testing import *
+
 
 
 
