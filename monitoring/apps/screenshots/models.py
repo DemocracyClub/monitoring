@@ -24,7 +24,8 @@ class Screenshot(models.Model):
         br = settings.WEBDRIVER()
         br.get(self.url.url)
         ss =  br.get_screenshot_as_base64()
-        # import ipdb; ipdb.set_trace()
-        # ss = br.save_screenshot('screenshot.png')
         br.quit()
-        self.image.save(self.url.base_file_name(), ContentFile(base64.decodestring(ss)))
+        self.image.save(
+            self.url.base_file_name(),
+            ContentFile(base64.decodestring(ss))
+        )
