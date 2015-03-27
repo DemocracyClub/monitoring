@@ -2,6 +2,7 @@ import datetime
 
 from django.core.management.base import BaseCommand
 
+from pages.models import Page
 from pages.tasks import parse_page_task
 
 
