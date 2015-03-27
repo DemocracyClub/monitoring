@@ -14,6 +14,7 @@ class Command(BaseCommand):
         ALL_HASHTAGS = []
         TOP_RTS = {}
         for tweet in Tweet.objects.all():
+            tweet.save()
             raw = json.loads(tweet.raw_data)
             TOP_RTS[raw['text']] = raw.get('retweet_count', 0)
             ALL_USERNAMES.append(raw['user']['screen_name'])

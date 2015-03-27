@@ -10,15 +10,18 @@ from django.utils.text import slugify
 from django_extensions.db.models import TimeStampedModel
 
 DOWNLOAD_FREQUENCIES = (
+    ("once", "Once"),
+    ("hourly", "Hourly"),
     ("daily", "Daily"),
+    ("weekly", "Weekly"),
 )
 
 
 class URL(TimeStampedModel):
-    url = models.URLField(blank=False, null=False)
-    domain = models.CharField(blank=True, max_length=255)
-    path = models.CharField(blank=True, max_length=255)
-    querystring = models.CharField(blank=True, max_length=255)
+    url = models.URLField(max_length=800, blank=False, null=False)
+    domain = models.CharField(blank=True, max_length=800)
+    path = models.CharField(blank=True, max_length=800)
+    querystring = models.CharField(blank=True, max_length=800)
     last_fetched = models.DateTimeField(blank=True, null=True)
     last_http_status_code = models.IntegerField(blank=True, null=True)
     revisit_frequency = models.CharField(
@@ -65,12 +68,9 @@ class URL(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.url_to_parts()
         if not self.revisit_frequency:
-            self.revisit_frequency = "daily"
+            self.revisit_frequency = "once"
 
-        # kwargs['force_insert'] = False
-        # print kwargs
-
-        return super(URL, self).save(args, kwargs)
+        return super(URL, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.url

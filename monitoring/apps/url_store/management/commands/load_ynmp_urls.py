@@ -19,7 +19,6 @@ class Command(BaseCommand):
                 'facebook_page_url',
                 'homepage_url',
                 'facebook_personal_url',
-                'wikipedia_url',
             ]
             for f in url_fields:
                 if line[f]:

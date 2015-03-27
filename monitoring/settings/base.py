@@ -128,6 +128,7 @@ PROJECT_APPS = (
     'url_store',
     'screenshots',
     'twitter_accounts',
+    'pages',
 )
 
 INSTALLED_APPS += PROJECT_APPS

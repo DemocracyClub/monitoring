@@ -1,10 +1,12 @@
 import time
 import json
+import re
 
 from django.db import models
 
 from django_extensions.db.models import TimeStampedModel
 
+from url_store.models import URL
 from .api_base import api
 
 class TwitterUser(TimeStampedModel):
@@ -46,3 +48,33 @@ class Tweet(TimeStampedModel):
     raw_data = models.TextField()
     twitter_user = models.ForeignKey(TwitterUser)
     text = models.CharField(blank=True, max_length=200)
+
+    @property
+    def json_from_raw(self):
+        return json.loads(self.raw_data)
+
+    def parse_urls(self):
+        json = self.json_from_raw
+        ALL_URLS = set()
+        if 'urls' in json:
+            ALL_URLS = ALL_URLS.union(json['urls'].values())
+
+        url_matcher = re.compile(r"(http://[^ ]+)")
+        extra_urls = url_matcher.findall(unicode(self.text))
+        if extra_urls:
+            ALL_URLS = ALL_URLS.union(set(extra_urls))
+        return ALL_URLS
+
+
+    def create_urls(self):
+        for url in self.parse_urls():
+            if not url.startswith('http://t.co/'):
+                print url
+                url, created = URL.objects.update_or_create(
+                    url=url
+                )
+
+    def save(self, *args, **kwargs):
+        ret = super(Tweet, self).save(*args, **kwargs)
+        self.create_urls()
+        return ret
