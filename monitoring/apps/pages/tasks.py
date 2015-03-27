@@ -27,3 +27,7 @@ def save_page_task(url):
     url.last_fetched = datetime.datetime.now()
     url.last_http_status_code = req.status_code
     url.save()
+
+@shared_task
+def parse_page_task(page):
+    page.parse_raw()

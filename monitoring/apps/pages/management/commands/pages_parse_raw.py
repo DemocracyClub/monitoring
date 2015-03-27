@@ -2,13 +2,12 @@ import datetime
 
 from django.core.management.base import BaseCommand
 
-from pages.models import Page
+from pages.tasks import parse_page_task
 
 
 class Command(BaseCommand):
 
     def handle(self, **options):
-        # for page in Page.objects.filter(page_text='',
-        #                         url__last_http_status_code=200):
-        for page in Page.objects.filter(page_text=''):
-            page.parse_raw()
+        for page in Page.objects.filter(page_text='',
+                                url__last_http_status_code=200):
+            parse_page_task.delay(page)
