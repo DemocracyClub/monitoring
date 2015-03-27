@@ -5,7 +5,6 @@ from django.core.management.base import BaseCommand
 from url_store.models import URL
 from pages.tasks import save_page_task
 from screenshots.tasks import screenshot_task
-from screenshots.models import Screenshot
 
 
 class Command(BaseCommand):
