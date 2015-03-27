@@ -69,7 +69,6 @@ class Tweet(TimeStampedModel):
     def create_urls(self):
         for url in self.parse_urls():
             if not url.startswith('http://t.co/'):
-                print url
                 url, created = URL.objects.update_or_create(
                     url=url
                 )

@@ -6,6 +6,7 @@ from django.conf import settings
 
 from twitter_accounts.models import Tweet
 from url_store.models import URL
+from screenshots.models import Screenshot
 
 
 class Command(BaseCommand):
@@ -24,6 +25,8 @@ class Command(BaseCommand):
 
         tweets_count = Tweet.objects.all().count()
         URL_count = URL.objects.all().count()
+        screenshot_count = Screenshot.objects.all().count()
 
         self.post_update('tweets_archived', {'current': tweets_count})
         self.post_update('urls_archived', {'current': URL_count})
+        self.post_update('screenshots_taken', {'current': screenshot_count})
