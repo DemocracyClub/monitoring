@@ -8,7 +8,7 @@ logger = get_task_logger(__name__)
 
 
 @shared_task
-def screenshot_task(x):
-    # try:
-    x.take_screenshot()
-        # assert False
+def screenshot_task(url):
+    s = Screenshot(url=url)
+    s.save()
+    s.take_screenshot()

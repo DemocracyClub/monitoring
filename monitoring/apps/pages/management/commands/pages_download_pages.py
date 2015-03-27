@@ -35,7 +35,5 @@ class Command(BaseCommand):
         for qs in querysets:
             for url in qs:
                 save_page_task.delay(url)
-                s = Screenshot(url=url)
-                s.save()
-                screenshot_task.delay(s)
+                screenshot_task.delay(url)
 
