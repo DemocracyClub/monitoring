@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
         tweets_count = Tweet.objects.all().count()
         URL_count = URL.objects.all().count()
-        screenshot_count = Screenshot.objects.all().count()
+        screenshot_count = Screenshot.objects.exclude(image=None).count()
 
         self.post_update('tweets_archived', {'current': tweets_count})
         self.post_update('urls_archived', {'current': URL_count})

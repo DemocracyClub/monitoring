@@ -17,3 +17,4 @@ requests
 python-twitter==2.0
 flower
 selenium
+goose-extractor

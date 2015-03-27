@@ -16,7 +16,7 @@ def download_file_name(instance, filename):
 
 
 class Screenshot(models.Model):
-    url = models.ForeignKey(URL)
+    url = models.ForeignKey(URL, max_length=800)
     image = models.ImageField(upload_to=download_file_name)
 
     def take_screenshot(self):
