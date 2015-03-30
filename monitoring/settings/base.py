@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'djcelery',
+    'raven.contrib.django.raven_compat',
 )
 
 PROJECT_APPS = (
@@ -129,6 +130,7 @@ PROJECT_APPS = (
     'screenshots',
     'twitter_accounts',
     'pages',
+    'facebook_feeds',
 )
 
 INSTALLED_APPS += PROJECT_APPS
@@ -166,6 +168,9 @@ LOGGING = {
     }
 }
 
+RAVEN_CONFIG = {
+    'dsn': 'https://c59cb200a7f640b29fca938b9afad46d:88d7391005d24202a3950e54a5f48336@app.getsentry.com/40654',
+}
 
 CELERY_ROUTES = {
     'twitter_accounts.tasks.get_tweets_task': {'queue': 'twitter'}

@@ -9,6 +9,8 @@ from django.utils.text import slugify
 
 from django_extensions.db.models import TimeStampedModel
 
+from .managers import URLManager
+
 DOWNLOAD_FREQUENCIES = (
     ("once", "Once"),
     ("hourly", "Hourly"),
@@ -26,6 +28,8 @@ class URL(TimeStampedModel):
     last_http_status_code = models.IntegerField(blank=True, null=True)
     revisit_frequency = models.CharField(
         blank=True, max_length=100, choices=DOWNLOAD_FREQUENCIES)
+
+    objects = URLManager()
 
     @property
     def base_date(self):

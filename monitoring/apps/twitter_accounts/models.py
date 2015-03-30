@@ -27,7 +27,6 @@ class TwitterUser(TimeStampedModel):
             return time.mktime(self.latest_tweet.created.timetuple())
 
     def get_tweets(self):
-
         latest_tweet = self.latest_tweet
         kwargs = {
             'screen_name': self.username

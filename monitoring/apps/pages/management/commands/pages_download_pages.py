@@ -4,7 +4,6 @@ from django.core.management.base import BaseCommand
 
 from url_store.models import URL
 from pages.tasks import save_page_task
-from screenshots.tasks import screenshot_task
 
 
 class Command(BaseCommand):
@@ -34,5 +33,4 @@ class Command(BaseCommand):
         for qs in querysets:
             for url in qs:
                 save_page_task.delay(url)
-                screenshot_task.delay(url)
 

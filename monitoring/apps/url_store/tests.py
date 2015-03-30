@@ -37,3 +37,8 @@ class SmokeTests(TestCase):
             "{0}-example.com-foo-bar-baz-x-y".format(TODAY)
         )
 
+    def test_since(self):
+        URL.objects.hour_ago()
+        URL.objects.day_ago()
+        URL.objects.week_ago()
+        URL.objects.week_ago().filter(domain="example.com")
